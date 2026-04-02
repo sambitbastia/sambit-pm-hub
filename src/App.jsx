@@ -87,6 +87,269 @@ The whole process takes 20–30 minutes versus 2–3 hours. And because you're s
   },
 ];
 
+// ─────────────────────────────────────────────
+// AI BLOG POSTS — 2026 (Weekly, Jan → Mar)
+// Add newer posts at the TOP of this array.
+// ─────────────────────────────────────────────
+const AI_POSTS = [
+  {
+    id: 112,
+    date: "2026-03-23",
+    title: "Three years of watching AI change product management",
+    excerpt: "ChatGPT launched in late 2022. I've been writing about AI and product ever since. Here's the honest reckoning — what I got right, what I got wrong, and what still surprises me.",
+    tag: "AI",
+    tagColor: "#D85A30",
+    tagBg: "#FAECE7",
+    readTime: "5 min",
+    content: `ChatGPT launched in November 2022. That's three and a half years of watching AI go from "impressive demo" to actual infrastructure. I want to take honest stock.
+
+**What I got right:** The interface shift was real. Conversational AI wasn't just a parlor trick — it changed how people expect to interact with software. The cost of intelligence dropped faster than almost anyone predicted. And agents took longer than the hype suggested. I wrote in early 2023 that AutoGPT was "too early." That held for another two years.
+
+**What I got wrong:** I underestimated how fast enterprises would adopt. I thought procurement and security concerns would add 18–24 months of lag. In practice, shadow AI use forced the timeline down. Teams were using ChatGPT on their laptops before security policies existed. The compliance conversation happened after the adoption, not before.
+
+**What still surprises me:** The fundamental PM challenges haven't changed. Discovery is still hard. Prioritization is still political. Stakeholder alignment is still the bottleneck. AI made me faster. It didn't make the job easier — it raised the bar for what "good" looks like.
+
+Three years in, AI feels like electricity felt in the 1930s. Still remarkable. Already inevitable. The interesting question now isn't whether to use it — it's whether you're using it with enough intention to get compounding value from it.
+
+Most teams aren't there yet. That's the gap worth closing.`,
+  },
+  {
+    id: 111,
+    date: "2026-03-16",
+    title: "The AI product stack in 2026 — what layers actually matter",
+    excerpt: "Most product teams are debating the wrong layer. The foundation model choice matters less than you think. The orchestration layer is where products live or die.",
+    tag: "AI",
+    tagColor: "#D85A30",
+    tagBg: "#FAECE7",
+    readTime: "4 min",
+    content: `There are three layers in every AI product now. Most teams are focused on the wrong one.
+
+**Layer 1: Foundation.** The LLM. The model. People still debate which model to use, but the capability gap between top models has narrowed significantly. Picking a model is a real decision — but it's rarely the most important one anymore. The benchmark gap between frontier models is smaller than the design gap between good and bad products built on top of them.
+
+**Layer 2: Orchestration.** How you connect models to data, tools, memory, and workflows. This is where most product value gets created or destroyed. RAG design, tool calling architecture, context window management, how you chain steps — this is the unsexy infrastructure that determines whether your product is reliable or not. Most production failures I've seen trace back to this layer.
+
+**Layer 3: Experience.** What users see. The chat interface is overdone. The most interesting AI products in 2026 don't look like AI products — they look like good software that happens to be very smart.
+
+The pattern I keep seeing: PM attention goes to Layer 1 (which model?) and Layer 3 (how does the UI look?). The bottleneck is almost always Layer 2.
+
+If your AI product is unreliable in production, don't upgrade the model. Audit your orchestration. That's almost always where the problem lives.`,
+  },
+  {
+    id: 110,
+    date: "2026-03-09",
+    title: "AI safety is a product problem — stop treating it as just policy",
+    excerpt: "Every time safety comes up in an AI review, teams punt to legal. That's the wrong reflex. Safety is embedded in product decisions. It's PM work.",
+    tag: "AI",
+    tagColor: "#D85A30",
+    tagBg: "#FAECE7",
+    readTime: "4 min",
+    content: `Every time safety comes up in an AI product review, the instinct is to punt to the legal or trust & safety team. I've watched this happen in meeting after meeting. It's the wrong reflex.
+
+Safety isn't just about policy. It's embedded in product decisions: what data you use, how you handle model uncertainty, what the fallback is when the AI is wrong, whether you tell users when confidence is low. These are PM decisions.
+
+Some concrete examples. If your AI summarizes medical information and doesn't surface uncertainty, that's a product design failure. If your agent can take irreversible actions and there's no confirmation step, that's a product design failure. If your AI generates content with no provenance signal, that's a product design failure. None of these require a policy team to define. They require a PM who thought through the failure modes.
+
+The question I ask in every AI design review: **"What's the worst-case output, and did we design for it?"** Most teams can't answer that on the spot. When they can't, safety becomes a reactive blocker. When they can, it becomes a feature — something users notice and trust.
+
+The shift I want to see: safety as product craft. Not safety as legal overhead. The teams treating it that way are building AI products that earn genuine trust. The others are one incident away from a retrofit that costs three times as much.`,
+  },
+  {
+    id: 109,
+    date: "2026-03-02",
+    title: "The post-text interface is actually landing",
+    excerpt: "For two years, every AI product looked like a chat box. That made sense then. It's starting to feel like a limitation now — and users are noticing.",
+    tag: "AI",
+    tagColor: "#D85A30",
+    tagBg: "#FAECE7",
+    readTime: "4 min",
+    content: `For two years, every AI product looked like a chat box. It was the obvious choice — LLMs are text-in, text-out at heart, and the chat metaphor was familiar. But the metaphor was always limiting, and users have started to feel it.
+
+Voice is making a real comeback. Not Siri-style voice (pattern matching with a voice skin) — actual conversational AI that understands context, follows threads, and responds intelligently across a real exchange. The difference in experience is large enough to matter for specific use cases: hands-free workflows, accessibility, anything where typing is friction.
+
+More interesting to me: multimodal input. Users can now share a screenshot, point at something on screen, describe a visual context. Products that route the right modality to the right task are starting to pull ahead of products that force everything through a text prompt box.
+
+The design challenge is real, though. Text is inspectable. You can re-read it, edit it, copy it. Voice and image interactions are more ephemeral. Designing for recall, review, and correction in non-text interfaces is genuinely hard work.
+
+**What this means if you're building:** If your AI product is text-only, you're not behind — but you should be asking: for which user workflows does a different modality create meaningfully more value? Not "should we add voice?" but "what's the task where voice removes the most friction?" Start there and prototype it. The answer won't be obvious until you see someone use it.`,
+  },
+  {
+    id: 108,
+    date: "2026-02-23",
+    title: "AI in design: what co-piloting actually looks like (not the demo version)",
+    excerpt: "The demo shows AI generating beautiful screens in seconds. The reality is messier and more interesting. Here's what actually changed in design workflows.",
+    tag: "AI",
+    tagColor: "#D85A30",
+    tagBg: "#FAECE7",
+    readTime: "4 min",
+    content: `I want to push back on two narratives: "AI will replace designers" and "AI is just a productivity tool that changes nothing structurally." Neither is accurate.
+
+What AI actually changed in design workflows: the blank-page problem is mostly solved. Generation is fast. The bottleneck has shifted from "create options" to "make decisions." That's a meaningful shift. Designers who are strong at synthesis, critique, and judgment are more valuable now. Designers whose primary output was execution are feeling the pressure.
+
+For product teams, this changes how you resource design. You need fewer hours of generation and more hours of review and decision-making. Your design sprint structure probably should change to match — more time on problem framing, more time on critique, less time waiting for assets to appear.
+
+What hasn't changed: taste. The ability to recognize what's right for the user, what fits the product's purpose, what will actually hold up in context. AI doesn't have taste. It has patterns. Those are genuinely different things. You can tell the difference between an AI-generated output and a designed output when you look at the details. The details still matter.
+
+The best designers I work with treat AI like a very fast, very prolific junior who can generate anything but needs to be told what to generate and then edited ruthlessly. That framing works. The ones who treat AI as a replacement for thinking tend to produce work that looks fine in a deck and falls apart in production.`,
+  },
+  {
+    id: 107,
+    date: "2026-02-16",
+    title: "Measuring AI ROI — the metrics that actually matter",
+    excerpt: "'Time saved' is a vanity metric. Everyone's measuring it. Almost no one is measuring what it means. Here's how I think about AI ROI in 2026.",
+    tag: "AI",
+    tagColor: "#D85A30",
+    tagBg: "#FAECE7",
+    readTime: "4 min",
+    content: `Everyone wants to prove the AI investment is paying off. The problem is most teams are measuring the wrong things.
+
+"Time saved" is a weak metric. It's easy to collect, hard to interpret, and gameable. Someone says they saved 2 hours on a report — but did that report improve? Did those 2 hours go to higher-value work? Did it actually ship faster? You probably don't know. And "time saved" as a standalone number tells a story to executives that doesn't always connect to actual value.
+
+The better metrics I've found:
+
+**Decision quality:** Are decisions made with AI assistance more accurate, faster to implement, less often reversed? This requires tracking decisions over time — harder to do, but it's the real signal. If your AI-assisted prioritization decisions are holding up better at the end of the quarter, that's meaningful.
+
+**Rework rate:** Does AI-assisted output require fewer revision cycles? Fewer feedback loops? This is measurable and gets at quality, not just speed. It also reveals whether AI is actually improving the work or just shifting the effort.
+
+**Discovery throughput:** How many actionable insights per month from user research? AI in synthesis can meaningfully increase this — if you measure it before and after.
+
+What I've stopped tracking: prompt volume (activity, not outcome), how many team members "use AI" (adoption signal, not value signal), time-to-first-draft (only matters if the draft is good).
+
+The question isn't "are people using AI?" It's "are decisions getting better?"`,
+  },
+  {
+    id: 106,
+    date: "2026-02-09",
+    title: "How organizations are actually changing with AI — not the LinkedIn version",
+    excerpt: "LinkedIn says everyone is transforming. The real picture is patchier and more interesting. Here's what I'm actually seeing.",
+    tag: "AI",
+    tagColor: "#D85A30",
+    tagBg: "#FAECE7",
+    readTime: "4 min",
+    content: `LinkedIn version: every company has an AI transformation underway. Everyone is a 10x team. The future is now.
+
+Real version: adoption is patchy, uneven, and usually driven by a handful of enthusiastic individuals per team who carry the rest along at their own pace.
+
+**What I'm actually seeing:** Individual productivity has genuinely improved for people who built real AI workflows. The median PM on an AI-enabled team is noticeably more capable than two years ago in specific tasks — research synthesis, document drafting, first-pass analysis, user interview coding. That's real and compounding.
+
+**What's slow:** Team-level process change. Most teams still run standups, planning cycles, and reviews the same way they did in 2023. AI hasn't changed how teams coordinate. It's changed how individuals work within those processes. Those are different things, and the second one is much harder.
+
+**What's even slower:** Culture. Some leaders are still treating AI as a threat to headcount — using it primarily as a justification for slower hiring rather than a reason to raise quality bars. Others are over-investing in AI theater: demos, workshops, announcements, without material change to how work gets done.
+
+The teams I've watched get genuine compounding returns from AI all shared one thing: they treated AI as a capability multiplier for their existing people, not a substitution strategy. They changed workflows, not just added tools. That distinction matters more than which tools you pick.`,
+  },
+  {
+    id: 105,
+    date: "2026-02-02",
+    title: "Reasoning models and long-horizon tasks — the new PM challenge",
+    excerpt: "AI that can plan multi-step tasks creates new product design problems that nobody has fully solved yet. Interruption, observability, latency — here's how I'm thinking about it.",
+    tag: "AI",
+    tagColor: "#D85A30",
+    tagBg: "#FAECE7",
+    readTime: "5 min",
+    content: `The o1-class reasoning models changed something important: AI can now handle tasks that require multi-step planning and self-correction. Not just "what's the answer?" but "how do I get to the answer, check it, and adjust if I'm wrong?" That's a qualitatively different capability.
+
+It's useful. But it creates new product design problems that I haven't seen anyone fully solve yet.
+
+**The interruption problem.** If a model is reasoning through a 15-step plan, where do you let the user step in? Interrupt too early and you break the chain. Don't interrupt at all and the user loses confidence in what's happening. The right intervention points are task-specific — and figuring them out is real design work, not just a UI decision.
+
+**The observability problem.** With short outputs, users can verify the answer. With long reasoning chains, verification gets hard. Users can't easily audit intermediate steps. Trust degrades. Products that solve this — that give users just enough visibility without drowning them in internal reasoning — have a real UX advantage.
+
+**The latency problem.** Longer reasoning takes longer. Users tolerate wrong answers better than slow answers. That's not ideal, but it's true — which means "make it faster" often matters more than "make it smarter" in early-stage agentic products. Streaming intermediate results helps, but streaming every reasoning step feels like watching someone think out loud: useful for a few tasks, annoying for most.
+
+The design pattern for reasoning model transparency is genuinely unsolved. The PM who gets it right will build something worth copying.`,
+  },
+  {
+    id: 104,
+    date: "2026-01-26",
+    title: "The AI integration middleware is the real battleground",
+    excerpt: "The foundation model race matters less than it did. The orchestration layer — how AI connects to your data, tools, and workflows — is where real product moats are being built.",
+    tag: "AI",
+    tagColor: "#D85A30",
+    tagBg: "#FAECE7",
+    readTime: "4 min",
+    content: `The foundation model race is still happening, but it's matured. The capability gap between frontier models has narrowed. Picking a model still matters — but it's no longer the dominant source of product differentiation it was in 2023.
+
+The real battle is in the orchestration layer: who controls how AI connects to your data, your tools, and your workflows.
+
+Think about what this layer includes: how you retrieve relevant context (RAG architecture), how you chain model calls, how you manage memory across sessions, how you route queries to the right model for the right task, how you call external tools reliably, how you debug when something in the chain breaks. This is the layer between the foundation model and the end user experience — and it's where most of the reliability, quality, and performance actually comes from.
+
+This is unglamorous infrastructure work. It doesn't make for good conference demos. But it's what separates AI products that work in production from AI products that work in a pitch deck.
+
+The teams and companies that understand this layer deeply are building real moats. Not because the technology is proprietary — most of the tools are open. But because operational excellence in orchestration is hard to copy. You accumulate institutional knowledge about failure modes, edge cases, latency patterns, and context design that takes time to build. You can't shortcut it by switching to a better model.
+
+If your team doesn't have at least one person who can reason clearly about this layer, that's the gap to close first.`,
+  },
+  {
+    id: 103,
+    date: "2026-01-19",
+    title: "What actually changed for PMs in 2025 — the honest version",
+    excerpt: "A year has passed since I set my AI goals for 2025. Here's an honest accounting of what AI genuinely changed, what it didn't, and what I got wrong.",
+    tag: "AI",
+    tagColor: "#D85A30",
+    tagBg: "#FAECE7",
+    readTime: "5 min",
+    content: `Enough time has passed that I can give an honest accounting of what AI changed about PM work in 2025. Not the LinkedIn version. The actual version.
+
+**What AI genuinely changed:**
+
+Research and synthesis. Dramatically faster. What used to take a full day of reading and note-taking now takes a focused two-hour session of directed AI-assisted synthesis. The quality of the synthesis depends heavily on how you prompt and review it — but the raw throughput improvement is real and compounding.
+
+Document drafting. PRDs, specs, decks, one-pagers. The blank-page problem is largely solved. Editing is still work. The judgment of what to include is still work. But the activation energy to start is gone, and that matters more than people give it credit for.
+
+Discovery analysis. Running AI over qualitative data from user interviews changed how much I could learn per sprint. Not just faster — genuinely broader. I can surface patterns across 40 interviews that I would have missed across 10.
+
+**What AI didn't change:**
+
+Stakeholder dynamics. Still political. Still relationship-driven. The PM who thinks AI will help them win a prioritization argument with a VP is going to be disappointed.
+
+The fundamental uncertainty of product. You still don't know if users will care until they try it. AI can help you explore the possibility space faster, but it can't collapse the uncertainty.
+
+Prioritization judgment. The hard part was never writing RICE scores. It was the judgment underneath them.
+
+Summary: AI made execution faster. It didn't make strategy clearer. Some PMs confused the two and moved faster toward the wrong thing. Speed without direction is just more expensive mistakes.`,
+  },
+  {
+    id: 102,
+    date: "2026-01-12",
+    title: "AI agents in production — honest lessons from the trenches",
+    excerpt: "A year ago, agentic AI was mostly demos. Now it's in production. Here's what I've actually learned — including the things that still don't work.",
+    tag: "AI",
+    tagColor: "#D85A30",
+    tagBg: "#FAECE7",
+    readTime: "5 min",
+    content: `A year ago, agentic AI was mostly demos and prototypes. Now it's in production across enough real products that I can give an honest accounting of what works and what doesn't.
+
+**Agents fail at edges.** The demo always shows the clean path: user asks for X, agent does X, everyone's happy. Production is made of edge cases. The user asks for something ambiguous. The tool returns an unexpected error. The context window gets overloaded mid-task. Agents that weren't designed for graceful degradation in these moments fail badly — and they fail in ways that feel more jarring than regular software failures because users expected intelligence.
+
+**Users don't trust autonomous actions without undo.** You'd think people would welcome having an AI do things for them. In practice, if users can't reverse an action, they won't initiate it — even when they're confident the AI would do it well. The reversibility requirement is non-negotiable for any agent that touches real data or real workflows. Design for undo first. Everything else second.
+
+**Latency is a bigger problem than accuracy.** Users tolerate wrong answers better than slow answers. Not ideal, but consistently true across the products I've watched. Which means "make it faster" often matters more than "make it smarter" in early-stage agentic work. A fast 80% answer beats a slow 95% answer for most everyday tasks.
+
+**What's actually working:** narrow, reliable, reversible, fast agents with a clear scope. Not general-purpose. The agents that are delivering real value in 2026 solve one thing very well. Start with that. Generality can come later.`,
+  },
+  {
+    id: 101,
+    date: "2026-01-05",
+    title: "The AI consolidation year begins",
+    excerpt: "2025 was the deployment year — AI went from interesting to embedded. 2026 feels different. The question isn't 'should we use AI?' anymore. It's 'which AI bets are actually paying off?'",
+    tag: "AI",
+    tagColor: "#D85A30",
+    tagBg: "#FAECE7",
+    readTime: "4 min",
+    content: `At the end of 2024 I wrote that 2025 would be the deployment year — AI moving from interesting experiments to embedded in real workflows. That was roughly right. By mid-2025, most serious product teams had AI in their stack somewhere. By end of 2025, the question wasn't "should we use AI?" That was settled.
+
+2026 feels different. The novelty is gone. The budgets are being scrutinized. The question now is: which AI bets are actually paying off?
+
+The consolidation is already starting. AI tools that couldn't demonstrate clear value during 2025 are struggling to renew contracts. The enthusiasm cycle that carried them through 2024 has expired. Users who adopted AI for novelty have either built real habits around it or quietly stopped using it. There's no middle state anymore.
+
+For PMs, this creates a challenge that's different from the previous two years. Then, the challenge was "how do we build with AI?" Now it's "how do we prove this AI feature is worth what we're paying for it?" Those are different questions that need different metrics, different conversations with stakeholders, and a different approach to product iteration.
+
+The teams that get through this consolidation will be the ones who tied AI features to specific user outcomes — not engagement signals, not feature adoption rates, but actual outcomes users care about. If you haven't done that audit yet, start now. The renewal conversation is coming.
+
+The consolidation will be uncomfortable. It will also be clarifying. That's usually how good things happen in product.`,
+  },
+];
+
 const FRAMEWORKS = [
   {
     title: "RICE scoring",
@@ -707,8 +970,108 @@ function MailingList() {
   );
 }
 
+// ─── Blog Page ────────────────────────────────────────────────────
+function BlogPage({ onBack }) {
+  const [openPost, setOpenPost] = useState(null);
+  const dark = typeof window !== "undefined" && window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
+
+  return (
+    <div style={{
+      "--text-primary": dark ? "#E8E6DF" : "#1a1a1a",
+      "--text-muted": dark ? "#9c9a92" : "#5f5e5a",
+      "--card-bg": dark ? "#1c1c1a" : "#ffffff",
+      "--surface": dark ? "#252523" : "#f7f6f3",
+      "--border": dark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)",
+      "--page-bg": dark ? "#111110" : "#faf9f6",
+      fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+      background: "var(--page-bg)",
+      color: "var(--text-primary)",
+      minHeight: "100vh",
+    }}>
+      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+
+      {openPost && <PostModal post={openPost} onClose={() => setOpenPost(null)} />}
+
+      {/* Nav */}
+      <nav style={{
+        position: "sticky", top: 0, zIndex: 100,
+        background: dark ? "rgba(17,17,16,0.85)" : "rgba(250,249,246,0.85)",
+        backdropFilter: "blur(20px)",
+        borderBottom: "1px solid var(--border)",
+        padding: "0 24px",
+      }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 56 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg, #1D9E75, #0F6E56)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 700, fontSize: 14 }}>SB</div>
+            <span style={{ fontWeight: 600, fontSize: 15, color: "var(--text-primary)" }}>sambitbastia.com</span>
+          </div>
+          <button onClick={onBack} style={{
+            display: "flex", alignItems: "center", gap: 6,
+            border: "1px solid var(--border)", background: "var(--card-bg)",
+            borderRadius: 8, padding: "8px 16px",
+            fontSize: 13, fontWeight: 500, color: "var(--text-primary)", cursor: "pointer",
+          }}>← Back to site</button>
+        </div>
+      </nav>
+
+      {/* Hero */}
+      <section style={{ padding: "80px 24px 60px", maxWidth: 1200, margin: "0 auto" }}>
+        <div style={{ position: "relative" }}>
+          <div style={{
+            position: "absolute", top: -20, right: 0, width: 300, height: 300, borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(216,90,48,0.06) 0%, transparent 70%)", pointerEvents: "none",
+          }} />
+          <Badge color="#D85A30" bg="#FAECE7">AI × Product management</Badge>
+          <h1 style={{
+            fontSize: "clamp(36px, 5vw, 60px)", fontWeight: 700, lineHeight: 1.1,
+            margin: "20px 0 20px", fontFamily: "'Playfair Display', Georgia, serif", maxWidth: 700,
+          }}>
+            On AI.<br /><span style={{ color: "#D85A30" }}>Weekly.</span>
+          </h1>
+          <p style={{ fontSize: 18, color: "var(--text-muted)", lineHeight: 1.7, maxWidth: 560, marginBottom: 0 }}>
+            What AI actually means for product management — written from the trenches, not the conference stage. No hype. No hedging.
+          </p>
+        </div>
+      </section>
+
+      {/* Posts */}
+      <section style={{ padding: "0 24px 80px", maxWidth: 1200, margin: "0 auto" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 32 }}>
+          <div style={{ padding: "6px 16px", background: "#D85A30", borderRadius: 20, fontSize: 13, fontWeight: 700, color: "#fff", letterSpacing: "0.04em" }}>2026</div>
+          <span style={{ fontSize: 13, color: "var(--text-muted)" }}>Weekly — January through March</span>
+          <div style={{ flex: 1, height: 1, background: "var(--border)" }} />
+          <span style={{ fontSize: 12, color: "var(--text-muted)" }}>{AI_POSTS.length} posts</span>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 20 }}>
+          {AI_POSTS.map((post) => (
+            <BlogCard key={post.id} post={post} onClick={() => setOpenPost(post)} />
+          ))}
+        </div>
+        <div style={{ marginTop: 48 }}>
+          <MailingList />
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer style={{ padding: "40px 24px", borderTop: "1px solid var(--border)", textAlign: "center" }}>
+        <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "0 0 12px" }}>
+          © 2026 Sambit Bastia · Built with craft · All content is original and free to reference with attribution.
+        </p>
+        <button onClick={onBack} style={{ fontSize: 13, color: "#1D9E75", fontWeight: 500, background: "none", border: "none", cursor: "pointer" }}>
+          ← Back to sambitbastia.com
+        </button>
+      </footer>
+    </div>
+  );
+}
+
 // ─── Main App ──────────────────────────────────
 export default function SambitBastiaWebsite() {
+  const [page, setPage] = useState("home");
   const [activeSection, setActiveSection] = useState("hero");
   const [expandedFramework, setExpandedFramework] = useState(null);
   const [openStrategy, setOpenStrategy] = useState(null);
@@ -735,6 +1098,11 @@ export default function SambitBastiaWebsite() {
   };
 
   const dark = typeof window !== "undefined" && window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+
+  // ── Render the Blog page if selected ──
+  if (page === "blog") {
+    return <BlogPage onBack={() => { setPage("home"); window.scrollTo({ top: 0, behavior: "instant" }); }} />;
+  }
 
   return (
     <div style={{
@@ -774,7 +1142,7 @@ export default function SambitBastiaWebsite() {
               <NavDot key={s.id} active={activeSection === s.id} label={s.label} onClick={() => scrollTo(s.id)} />
             ))}
           </div>
-          <div style={{ display: "flex", gap: 6, flexWrap: "wrap", justifyContent: "flex-end" }}>
+          <div style={{ display: "flex", gap: 6, flexWrap: "wrap", justifyContent: "flex-end", alignItems: "center" }}>
             {SECTIONS.slice(0, 6).map((s) => (
               <button key={s.id} onClick={() => scrollTo(s.id)} style={{
                 border: "none",
@@ -788,6 +1156,18 @@ export default function SambitBastiaWebsite() {
                 transition: "all 0.2s",
               }}>{s.label}</button>
             ))}
+            <button onClick={() => setPage("blog")} style={{
+              border: "1px solid #D85A30",
+              background: "transparent",
+              borderRadius: 6,
+              padding: "6px 10px",
+              fontSize: 12,
+              fontWeight: 600,
+              color: "#D85A30",
+              cursor: "pointer",
+              transition: "all 0.2s",
+              marginLeft: 4,
+            }}>AI Blog ↗</button>
           </div>
         </div>
       </nav>
@@ -827,7 +1207,7 @@ export default function SambitBastiaWebsite() {
             padding: "12px 28px", borderRadius: 8, border: "none",
             background: "#1D9E75", color: "#fff", fontSize: 14, fontWeight: 600, cursor: "pointer",
           }}>Explore frameworks →</button>
-          <button onClick={() => scrollTo("blog")} style={{
+          <button onClick={() => setPage("blog")} style={{
             padding: "12px 28px", borderRadius: 8,
             border: "1px solid var(--border)", background: "transparent",
             color: "var(--text-primary)", fontSize: 14, fontWeight: 500, cursor: "pointer",
@@ -976,10 +1356,44 @@ export default function SambitBastiaWebsite() {
           title="From the product trenches"
           subtitle="Weekly essays on product management, AI, and the craft of building great products."
         />
+        {/* Latest 3 posts preview */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: 20 }}>
           {POSTS.map((post) => (
             <BlogCard key={post.id} post={post} onClick={() => setOpenPost(post)} />
           ))}
+        </div>
+        {/* CTA to AI Blog page */}
+        <div style={{
+          marginTop: 36,
+          padding: "28px 36px",
+          background: "var(--card-bg)",
+          border: "1px solid var(--border)",
+          borderRadius: 16,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: 16,
+          position: "relative",
+          overflow: "hidden",
+        }}>
+          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "linear-gradient(90deg, #D85A30, #f0956e)" }} />
+          <div>
+            <p style={{ fontSize: 13, fontWeight: 600, color: "#D85A30", margin: "0 0 4px", letterSpacing: "0.04em", textTransform: "uppercase" }}>AI Blog</p>
+            <p style={{ fontSize: 17, fontWeight: 600, color: "var(--text-primary)", margin: "0 0 4px", fontFamily: "'Playfair Display', Georgia, serif" }}>Weekly posts on AI × Product management</p>
+            <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>12 posts for 2026 — with 2022–2025 backfill in progress (77 more posts coming)</p>
+          </div>
+          <button
+            onClick={() => setPage("blog")}
+            style={{
+              padding: "12px 24px", borderRadius: 10, border: "none",
+              background: "#D85A30", color: "#fff",
+              fontSize: 14, fontWeight: 600, cursor: "pointer",
+              whiteSpace: "nowrap", flexShrink: 0,
+            }}
+          >
+            Read the AI blog →
+          </button>
         </div>
         <MailingList />
       </section>
@@ -1017,7 +1431,7 @@ export default function SambitBastiaWebsite() {
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               {[
                 { label: "Website", value: "www.sambitbastia.com" },
-                { label: "LinkedIn", value: "linkedin.com/in/sambitbastia" },
+                { label: "LinkedIn", value: "https://www.linkedin.com/in/sambit-bastia-9817b180/" },
                 { label: "GitHub", value: "github.com/sambitbastia" },
               ].map((link, i) => (
                 <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "10px 0", borderBottom: "1px solid var(--border)" }}>
