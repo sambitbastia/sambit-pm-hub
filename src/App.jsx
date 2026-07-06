@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import AI_POSTS from "./data/ai-posts.json";
 
 const SECTIONS = [
   { id: "hero", label: "Home" },
@@ -84,326 +85,6 @@ The right way is multi-turn prompting with progressive context loading:
 **Turn 4 — Acceptance criteria.** Feed the chosen solution back. Ask for edge cases and acceptance criteria. This is where AI genuinely saves time.
 
 The whole process takes 20–30 minutes versus 2–3 hours. And because you're steering every step, the output reflects your actual thinking — not a generic template.`,
-  },
-];
-
-// ─────────────────────────────────────────────
-// AI BLOG POSTS — 2026 (Weekly, Jan → Mar)
-// Add newer posts at the TOP of this array.
-// ─────────────────────────────────────────────
-const AI_POSTS = [
-  {
-    id: 113,
-    date: "2026-07-05",
-    title: "AI's governance week: ten signals banking PMs can't ignore",
-    excerpt: "From RBI's cyber warning to Visa's live AI shopping agents — the plumbing of trust just got real. A Top 10 special edition.",
-    tag: "AI",
-    tagColor: "#D85A30",
-    tagBg: "#FAECE7",
-    readTime: "12 min",
-    content: `This wasn't a week of model launches. It was a week of rulebooks. RBI told banks they can't blame the algorithm for a bad decision. The EU told model providers their compliance grace period has limits. The US government told OpenAI who gets early access to GPT-5.6, and reversed itself on Anthropic's export controls inside three weeks. Visa quietly proved AI agents can complete real purchases with real merchants.
-
-None of these stories are about whether AI works. They all assume it does. They're about who's accountable when it doesn't, and who gets to decide that. If you're a banking PM still building your 2026 roadmap around capability — which model is smartest, which agent is fastest — this week is your signal to add a second column: who governs it, and who's liable when it's wrong.
-
-**Story 1 — Claude Fable 5 comes back online after an 18-day export ban.** On July 1, Anthropic restored access to Claude Fable 5, its Mythos-class flagship, after the US Commerce Department lifted export controls that had pulled the model offline for roughly 18 days. Anthropic added new jailbreak safeguards and is expanding its Glasswing safety collaboration with Amazon, Google, and Microsoft. Indian banks aren't running Mythos-class models in production, but this is a live preview of a risk few CTOs have modeled: a foreign government suspending API access to a frontier model your roadmap depends on. RBI's FREE-AI framework already flags vendor concentration as a governance risk — this is that abstract worry made concrete, and it argues for at least one non-US-dependent option in every serious vendor shortlist.
-
-**Banking PM's radar:** If any customer-facing feature has a single-vendor dependency on one frontier model, this is your business case to fund a fallback-model abstraction layer this quarter — not because Anthropic will get suspended again, but because every provider now sits inside an export-control perimeter that changed twice in three weeks. **The trade-off:** single-vendor depth versus multi-vendor resilience. Going deep with one model buys tighter integration and a team that's genuinely good at one API's quirks. Going multi-vendor costs you that depth — more testing surface, slower feature velocity. The deciding condition is exposure: internal tooling can stay single-vendor and ship fast. Anything customer-facing and revenue-bearing needs the abstraction layer, because an 18-day blackout on a live feature is real money. Bottom line: build deep for internal tools, build wide for anything customers touch.
-
-**Story 2 — GPT-5.6 gets gated to roughly 20 vetted organisations.** OpenAI is delaying GPT-5.6's public release after the US government requested early, vetted access for roughly 20 organisations before wider availability, citing concerns about misuse in cyberattacks and national security contexts. If the US treats frontier model access as an export-control-adjacent lever, Indian regulated entities relying on US-hosted frontier APIs for credit or fraud decisioning inherit that geopolitical dependency whether they've priced it in or not. FREE-AI's vendor-risk section didn't anticipate government-mandated access tiers as a risk category. It will need to.
-
-**Banking PM's radar:** If you're evaluating GPT-5.6 or any gated frontier release for a use case with a hard launch date, build in a 4–6 week access-uncertainty buffer, and don't put it in your commitments to leadership until you have API keys, not just an announcement. **The trade-off:** commit your roadmap to the newest frontier model, or build on an already-GA model one generation behind. Gain from waiting: predictable access and more real-world benchmarks before you commit engineering hours. Give up: a temporary capability edge over whoever does get vetted access. Deciding condition: chase the vetted list only if being first is the actual business case and you can survive a government review process. Otherwise wait for GA. Bottom line: don't build a Q3 roadmap on a model you don't have keys for yet.
-
-**Story 3 — RBI's draft says banks can't blame the algorithm.** RBI's draft Guidance on Regulatory Principles for Model Risk Management states plainly that banks and NBFCs cannot transfer accountability for AI-driven decisions to the algorithm or the vendor — even when the model was built by a third party. It replaces RBI's 2002 credit-risk-model guidance. This is the single most concrete India-specific AI governance move of the year. It applies to every AI-assisted loan rejection, fraud flag, and risk score currently in production at HDFC, ICICI, Axis, or any NBFC. Vendor contracts — including core banking and CRM providers building AI-driven decisioning — now need explicit liability clauses, because RBI has made clear that indemnity language doesn't dilute the bank's obligation to the customer.
-
-**Banking PM's radar:** Pull every AI-assisted decisioning feature in your product — credit scoring, fraud flags, churn-risk models, even a personalisation engine that shapes offers — and check two things: is there a human-override path, and can a customer actually use the grievance-redressal flow? If either is missing, this draft is your business case to build it this quarter. **The trade-off:** build explainability and override mechanisms into every AI decisioning feature now, or wait for the final rule. Gain from building now: you're compliant before enforcement instead of retrofitting under deadline pressure. Give up: engineering time on a draft that could still shift before finalisation. Deciding condition: if the feature affects a customer-facing financial outcome — approval, rejection, pricing — build the override and audit trail now, because RBI's directional intent won't reverse. Purely internal AI use can wait. Bottom line: for anything customer-facing and financial, assume this passes as drafted.
-
-**Story 4 — RBI names AI cyberattacks the top risk for banks and NBFCs.** RBI's Financial Stability Report named AI-powered cyberattacks the top emerging risk for Indian banks and NBFCs, and separately warned that a correction in AI-related global stock valuations could spill into Indian financial stability through banks' indirect exposure to private credit funding the AI infrastructure boom. This is RBI, in its flagship report, connecting two dots most bank boards haven't connected: your AI adoption creates a new attack surface (deepfake KYC fraud, AI-generated phishing), and your balance sheet has indirect exposure to a global AI valuation correction through lending relationships with private credit firms. Both are now explicitly on the regulator's radar — which means they land on your next audit.
-
-**Banking PM's radar:** If your fraud and security roadmap treats "AI risk" only as a model-governance problem — bias, explainability — this report is your case to fund AI-specific threat detection too: deepfake voice/video checks in KYC, and phishing detection tuned for AI-generated content, which reads differently from templated human phishing. **The trade-off:** invest now in AI-specific fraud defence, or keep relying on fraud stacks tuned for human-generated attack patterns. Gain: you're ahead of a threat RBI just named the top risk category, which matters at your next supervisory review. Give up: budget that could go to the feature roadmap instead. Deciding condition: if fraud losses or false-positive rates have moved in the last two quarters, treat this as urgent; if not, budget it for FY27. Bottom line: put a number on your AI-generated fraud exposure before your auditor asks for one.
-
-**Story 5 — The EU AI Act Omnibus gets final sign-off, but not for everything.** The Council of the EU gave final approval on June 29 to the AI Act "Omnibus" simplification package, deferring high-risk AI system compliance deadlines from August 2026 to December 2027. GPAI model obligations and Article 50 transparency rules — chatbot disclosure, AI content labelling — still take effect August 2, 2026 as originally scheduled. Any Indian bank, NBFC, or fintech serving EU customers, or leaning on EU-headquartered vendors, needs the fine print: the deadline moved for high-risk systems (credit scoring, employment decisions), not for GPAI and transparency rules. If your chatbot or AI-generated customer communications touch EU users, August 2 is still your date.
-
-**Banking PM's radar:** Split your EU AI Act tracker into two lanes with two deadlines. Treating this as one blanket delay will get you a rude surprise on chatbot disclosure in five weeks. If any customer-communications product serves EU-based clients, verify with legal exactly which obligations moved. **The trade-off:** treat the Omnibus as blanket relief and deprioritise EU AI Act work, or keep the original timeline live for the obligations that didn't move. Gain from treating it as full relief: freed engineering capacity for 18 months. Give up: exposure to fines up to €35M or 7% of global turnover on the unchanged obligations. Deciding condition: this isn't really a judgment call — the law is explicit that GPAI and Article 50 are unmoved. The only real decision is whether your compliance team read past the "deadline extended" headline. Bottom line: the extension applies to high-risk systems only; verify before you stand down anything.
-
-**Story 6 — Gartner says 17% of banking CIOs have live AI agents, and warns on breaches.** Gartner's 2026 CIO survey finds 17% of banking CIOs have deployed AI agents in production, with 41% planning to within 12 months. Capital One (MACAW), JPMorgan (ASK DAVID), and Commonwealth Bank of Australia (Project Coral) already run live multi-agent workflows for lending, research, and engineering respectively. Gartner also forecasts that by 2028, 75% of data breaches will trace back to AI and agentic AI adoption unless banks build dedicated AI security platforms. Tier-1 Indian banks are roughly where the global Tier-1 cohort was 12–18 months ago on agent adoption. SBI and HDFC run chatbots and RPA at scale, but public multi-agent orchestration for lending or research — the MACAW/ASK DAVID kind — hasn't landed in India yet. That gap is closing fast, faster than the security tooling needed to govern it.
-
-**Banking PM's radar:** Before you pitch a multi-agent workflow — agents that plan, call tools, and hand off to each other — pair it with a governance ask in the same proposal: a kill switch, an action audit trail, and a human-approval gate above a defined transaction threshold. Gartner's 75%-of-breaches number is the exact stat for that slide. **The trade-off:** move fast into multi-agent orchestration to match global competitors, or build the governance layer first and orchestrate second. Gain from moving fast: competitive parity, faster time-to-value. Give up: a materially higher breach surface if governance lags adoption — exactly Gartner's warning. Deciding condition: if your bank already has mature RPA governance you can extend, move fast; the scaffolding exists. If agents would be your first foray into autonomous workflows, build governance first — retrofitting after an incident costs far more. Bottom line: governance isn't what you add after the pilot succeeds; it's the ticket to run the pilot at all.
-
-**Story 7 — Claude Sonnet 5 becomes the new default, and changes the cost math.** Anthropic made Claude Sonnet 5 its default model on June 30 — a midsize model built for lower-cost agentic work, positioned close to flagship Opus 4.8 on coding, reasoning, and tool use, and reportedly safer than its predecessor on hallucination, sycophancy, and prompt-injection resistance. Cost-per-token has been the single biggest blocker to running always-on AI agents at scale in Indian banking — a mid-tier bank processing millions of interactions can't afford flagship-tier pricing everywhere. A model that closes most of the capability gap at lower cost is exactly the unlock that makes agent-based service or document processing viable outside the top three or four banks.
-
-**Banking PM's radar:** Re-run the cost model for any feature you shelved because flagship pricing didn't pencil out — overlay campaigns, personalisation scoring, document summarisation. The economics that killed the business case six months ago may not apply to this generation of mid-tier models. **The trade-off:** run high-volume, always-on workloads (chat, notifications, document parsing) on a flagship model or a mid-tier model built for exactly this profile. Gain from mid-tier: materially lower cost at near-flagship capability for most banking use cases, which aren't research-grade reasoning tasks. Give up: the last few points of capability on genuinely hard tasks, like complex multi-step credit analysis. Deciding condition: high-volume and moderately complex work goes mid-tier; low-volume, high-stakes decisioning keeps a flagship model in the loop. Bottom line: default to mid-tier, escalate to flagship only where the stakes justify the cost.
-
-**Story 8 — Meituan open-sources a 1.6-trillion-parameter model trained on Chinese chips.** Chinese delivery-and-local-services giant Meituan open-sourced LongCat-2.0, a 1.6-trillion-parameter coding model trained entirely on Chinese-made chips — a signal that China's compute-independence push has reached frontier scale, not just smaller models. Indian banks won't run a Chinese-chip-trained model in core banking anytime soon — data-localisation and vendor-scrutiny norms rule it out. But it matters indirectly: it accelerates the global open-weight ecosystem, which is exactly where India's own push for indigenous, domain-specific financial language models — a named FREE-AI recommendation — will draw its playbook and its price pressure from.
-
-**Banking PM's radar:** If your team has been asked to evaluate "sovereign AI" or on-premise options for regulatory reasons, LongCat-2.0 and its peers are useful proof points that frontier-scale open-weight models are now credible enough to benchmark against, even if this specific model isn't a candidate for your stack. **The trade-off:** bet your compliance and cost strategy on API access to closed frontier models, or invest in infrastructure to self-host open-weight models. Gain from self-hosting: no data leaves your perimeter, no vendor-access risk of the kind that just hit Claude Fable 5. Give up: the ops burden of running and updating your own inference infrastructure, which most banking tech teams aren't staffed for. Deciding condition: if your use case triggers data-localisation review — PII, transaction data at scale — start evaluating self-hosted open-weight models now, even without switching this year. Bottom line: open-weight isn't ready to replace your API strategy, but it's ready to be Plan B.
-
-**Story 9 — OpenAI and Anthropic both file confidentially for IPOs.** Both OpenAI and Anthropic have confidentially filed for IPOs in 2026, targeting valuations up to roughly $1 trillion and $965 billion respectively, with public debuts potentially arriving in the second half of 2026 or into 2027. This is a vendor-concentration story wearing a market-news costume. Your bank's three-year AI roadmap almost certainly assumes continued API access, stable pricing, and sustained product investment from one or both of these companies. Going public changes incentive structures — public markets demand growth and margin discipline private funding doesn't, and that can show up as pricing shifts or de-prioritised enterprise features that aren't the growth story Wall Street wants.
-
-**Banking PM's radar:** Pull whichever vendor contract governs your primary LLM usage and check the pricing-change notice period. If it's 30 days or less, that's a renegotiation conversation to have before the IPO, not after — you have more leverage as a customer of a private company than of a newly public one under margin pressure. **The trade-off:** lock in longer-term pricing commitments now, or stay on flexible, shorter-term terms. Gain from locking in: price protection through a period of likely volatility around IPO-driven strategy shifts. Give up: flexibility to switch if a competitor's models improve faster. Deciding condition: if AI is embedded deep in a revenue-critical product that's hard to re-platform, lock in terms now. If you could swap models with a few weeks of engineering work, stay flexible and watch pricing post-listing. Bottom line: read your contract's price-change clause this week, not after the S-1 goes public.
-
-**Story 10 — Visa proves AI agents can shop for real, live, in Europe.** At the Visa Payments Forum in Paris, Visa announced that AI agents are now completing live purchases at participating merchants across Europe on behalf of cardholders — a step beyond controlled pilots, using Visa's infrastructure for agent authentication and transaction trust. UPI's architecture arguably makes India a faster arena for agentic commerce than card-rail markets — but the trust and authentication layer Visa just proved in Europe, agent identity verification and transaction-level authorisation, doesn't yet have a UPI-native equivalent. NPCI and India's PSPs (PhonePe, Paytm, Razorpay) have the volume advantage; they don't yet have the "Know Your Agent" authentication standard Visa and Mastercard have spent a year building.
-
-**Banking PM's radar:** If your roadmap includes any AI-agent-initiated payment flow — bill negotiation, subscription management, automated top-ups — start scoping the authentication and dispute-resolution model now, using Visa and Mastercard's agent-authentication frameworks as reference architecture. Building this from scratch once a UPI-native standard lands will be slower than adapting an existing pattern. **The trade-off:** wait for a UPI-native agentic-commerce standard before building AI-agent payment features, or build against existing card-network agent frameworks now, even for a UPI-dominant customer base. Gain from waiting: you build once, against a finished standard, with less rework. Give up: 12–18 months of competitive ground to whichever PSP moves first, given how fast Visa and Mastercard are iterating. Deciding condition: card-network-heavy revenue means start now, the infrastructure exists; UPI-first businesses should prototype and pressure-test without over-investing in production infrastructure a future UPI standard might make redundant. Bottom line: prototype now, productionise once NPCI signals direction.
-
-**PM's pick this week:** RBI's draft Guidance on Regulatory Principles for Model Risk Management (released June 24, open for public consultation) is the most useful 25-odd pages any Indian banking PM shipping AI features will read this year. It tells you exactly what the regulator expects on explainability and human override before you're forced to retrofit it under deadline pressure. Worth reading even if you're not directly RBI-regulated — the direct-accountability framing it uses is the direction every serious regulator globally is heading.
-
-Every story this week is the same story wearing different clothes: the infrastructure of trust around AI is getting built in public, one regulatory draft, one export-control reversal, one agent-authentication standard at a time. RBI told banks they own the algorithm's mistakes. The EU told model providers their grace period has limits. Visa told merchants that agents are now customers. None of this is really about capability anymore — GPT-5.6, Fable 5, and Sonnet 5 are all good enough for what most banking use cases actually need. The edge this year goes to whoever builds the governance scaffolding fastest, not whoever ships the flashiest agent demo first. If your 2026 roadmap still reads like a capability wishlist instead of a governance-plus-capability plan, this is the week to rewrite it.`,
-  },
-  {
-    id: 112,
-    date: "2026-03-23",
-    title: "Three years of watching AI change product management",
-    excerpt: "ChatGPT launched in late 2022. I've been writing about AI and product ever since. Here's the honest reckoning — what I got right, what I got wrong, and what still surprises me.",
-    tag: "AI",
-    tagColor: "#D85A30",
-    tagBg: "#FAECE7",
-    readTime: "5 min",
-    content: `ChatGPT launched in November 2022. That's three and a half years of watching AI go from "impressive demo" to actual infrastructure. I want to take honest stock.
-
-**What I got right:** The interface shift was real. Conversational AI wasn't just a parlor trick — it changed how people expect to interact with software. The cost of intelligence dropped faster than almost anyone predicted. And agents took longer than the hype suggested. I wrote in early 2023 that AutoGPT was "too early." That held for another two years.
-
-**What I got wrong:** I underestimated how fast enterprises would adopt. I thought procurement and security concerns would add 18–24 months of lag. In practice, shadow AI use forced the timeline down. Teams were using ChatGPT on their laptops before security policies existed. The compliance conversation happened after the adoption, not before.
-
-**What still surprises me:** The fundamental PM challenges haven't changed. Discovery is still hard. Prioritization is still political. Stakeholder alignment is still the bottleneck. AI made me faster. It didn't make the job easier — it raised the bar for what "good" looks like.
-
-Three years in, AI feels like electricity felt in the 1930s. Still remarkable. Already inevitable. The interesting question now isn't whether to use it — it's whether you're using it with enough intention to get compounding value from it.
-
-Most teams aren't there yet. That's the gap worth closing.`,
-  },
-  {
-    id: 111,
-    date: "2026-03-16",
-    title: "The AI product stack in 2026 — what layers actually matter",
-    excerpt: "Most product teams are debating the wrong layer. The foundation model choice matters less than you think. The orchestration layer is where products live or die.",
-    tag: "AI",
-    tagColor: "#D85A30",
-    tagBg: "#FAECE7",
-    readTime: "4 min",
-    content: `There are three layers in every AI product now. Most teams are focused on the wrong one.
-
-**Layer 1: Foundation.** The LLM. The model. People still debate which model to use, but the capability gap between top models has narrowed significantly. Picking a model is a real decision — but it's rarely the most important one anymore. The benchmark gap between frontier models is smaller than the design gap between good and bad products built on top of them.
-
-**Layer 2: Orchestration.** How you connect models to data, tools, memory, and workflows. This is where most product value gets created or destroyed. RAG design, tool calling architecture, context window management, how you chain steps — this is the unsexy infrastructure that determines whether your product is reliable or not. Most production failures I've seen trace back to this layer.
-
-**Layer 3: Experience.** What users see. The chat interface is overdone. The most interesting AI products in 2026 don't look like AI products — they look like good software that happens to be very smart.
-
-The pattern I keep seeing: PM attention goes to Layer 1 (which model?) and Layer 3 (how does the UI look?). The bottleneck is almost always Layer 2.
-
-If your AI product is unreliable in production, don't upgrade the model. Audit your orchestration. That's almost always where the problem lives.`,
-  },
-  {
-    id: 110,
-    date: "2026-03-09",
-    title: "AI safety is a product problem — stop treating it as just policy",
-    excerpt: "Every time safety comes up in an AI review, teams punt to legal. That's the wrong reflex. Safety is embedded in product decisions. It's PM work.",
-    tag: "AI",
-    tagColor: "#D85A30",
-    tagBg: "#FAECE7",
-    readTime: "4 min",
-    content: `Every time safety comes up in an AI product review, the instinct is to punt to the legal or trust & safety team. I've watched this happen in meeting after meeting. It's the wrong reflex.
-
-Safety isn't just about policy. It's embedded in product decisions: what data you use, how you handle model uncertainty, what the fallback is when the AI is wrong, whether you tell users when confidence is low. These are PM decisions.
-
-Some concrete examples. If your AI summarizes medical information and doesn't surface uncertainty, that's a product design failure. If your agent can take irreversible actions and there's no confirmation step, that's a product design failure. If your AI generates content with no provenance signal, that's a product design failure. None of these require a policy team to define. They require a PM who thought through the failure modes.
-
-The question I ask in every AI design review: **"What's the worst-case output, and did we design for it?"** Most teams can't answer that on the spot. When they can't, safety becomes a reactive blocker. When they can, it becomes a feature — something users notice and trust.
-
-The shift I want to see: safety as product craft. Not safety as legal overhead. The teams treating it that way are building AI products that earn genuine trust. The others are one incident away from a retrofit that costs three times as much.`,
-  },
-  {
-    id: 109,
-    date: "2026-03-02",
-    title: "The post-text interface is actually landing",
-    excerpt: "For two years, every AI product looked like a chat box. That made sense then. It's starting to feel like a limitation now — and users are noticing.",
-    tag: "AI",
-    tagColor: "#D85A30",
-    tagBg: "#FAECE7",
-    readTime: "4 min",
-    content: `For two years, every AI product looked like a chat box. It was the obvious choice — LLMs are text-in, text-out at heart, and the chat metaphor was familiar. But the metaphor was always limiting, and users have started to feel it.
-
-Voice is making a real comeback. Not Siri-style voice (pattern matching with a voice skin) — actual conversational AI that understands context, follows threads, and responds intelligently across a real exchange. The difference in experience is large enough to matter for specific use cases: hands-free workflows, accessibility, anything where typing is friction.
-
-More interesting to me: multimodal input. Users can now share a screenshot, point at something on screen, describe a visual context. Products that route the right modality to the right task are starting to pull ahead of products that force everything through a text prompt box.
-
-The design challenge is real, though. Text is inspectable. You can re-read it, edit it, copy it. Voice and image interactions are more ephemeral. Designing for recall, review, and correction in non-text interfaces is genuinely hard work.
-
-**What this means if you're building:** If your AI product is text-only, you're not behind — but you should be asking: for which user workflows does a different modality create meaningfully more value? Not "should we add voice?" but "what's the task where voice removes the most friction?" Start there and prototype it. The answer won't be obvious until you see someone use it.`,
-  },
-  {
-    id: 108,
-    date: "2026-02-23",
-    title: "AI in design: what co-piloting actually looks like (not the demo version)",
-    excerpt: "The demo shows AI generating beautiful screens in seconds. The reality is messier and more interesting. Here's what actually changed in design workflows.",
-    tag: "AI",
-    tagColor: "#D85A30",
-    tagBg: "#FAECE7",
-    readTime: "4 min",
-    content: `I want to push back on two narratives: "AI will replace designers" and "AI is just a productivity tool that changes nothing structurally." Neither is accurate.
-
-What AI actually changed in design workflows: the blank-page problem is mostly solved. Generation is fast. The bottleneck has shifted from "create options" to "make decisions." That's a meaningful shift. Designers who are strong at synthesis, critique, and judgment are more valuable now. Designers whose primary output was execution are feeling the pressure.
-
-For product teams, this changes how you resource design. You need fewer hours of generation and more hours of review and decision-making. Your design sprint structure probably should change to match — more time on problem framing, more time on critique, less time waiting for assets to appear.
-
-What hasn't changed: taste. The ability to recognize what's right for the user, what fits the product's purpose, what will actually hold up in context. AI doesn't have taste. It has patterns. Those are genuinely different things. You can tell the difference between an AI-generated output and a designed output when you look at the details. The details still matter.
-
-The best designers I work with treat AI like a very fast, very prolific junior who can generate anything but needs to be told what to generate and then edited ruthlessly. That framing works. The ones who treat AI as a replacement for thinking tend to produce work that looks fine in a deck and falls apart in production.`,
-  },
-  {
-    id: 107,
-    date: "2026-02-16",
-    title: "Measuring AI ROI — the metrics that actually matter",
-    excerpt: "'Time saved' is a vanity metric. Everyone's measuring it. Almost no one is measuring what it means. Here's how I think about AI ROI in 2026.",
-    tag: "AI",
-    tagColor: "#D85A30",
-    tagBg: "#FAECE7",
-    readTime: "4 min",
-    content: `Everyone wants to prove the AI investment is paying off. The problem is most teams are measuring the wrong things.
-
-"Time saved" is a weak metric. It's easy to collect, hard to interpret, and gameable. Someone says they saved 2 hours on a report — but did that report improve? Did those 2 hours go to higher-value work? Did it actually ship faster? You probably don't know. And "time saved" as a standalone number tells a story to executives that doesn't always connect to actual value.
-
-The better metrics I've found:
-
-**Decision quality:** Are decisions made with AI assistance more accurate, faster to implement, less often reversed? This requires tracking decisions over time — harder to do, but it's the real signal. If your AI-assisted prioritization decisions are holding up better at the end of the quarter, that's meaningful.
-
-**Rework rate:** Does AI-assisted output require fewer revision cycles? Fewer feedback loops? This is measurable and gets at quality, not just speed. It also reveals whether AI is actually improving the work or just shifting the effort.
-
-**Discovery throughput:** How many actionable insights per month from user research? AI in synthesis can meaningfully increase this — if you measure it before and after.
-
-What I've stopped tracking: prompt volume (activity, not outcome), how many team members "use AI" (adoption signal, not value signal), time-to-first-draft (only matters if the draft is good).
-
-The question isn't "are people using AI?" It's "are decisions getting better?"`,
-  },
-  {
-    id: 106,
-    date: "2026-02-09",
-    title: "How organizations are actually changing with AI — not the LinkedIn version",
-    excerpt: "LinkedIn says everyone is transforming. The real picture is patchier and more interesting. Here's what I'm actually seeing.",
-    tag: "AI",
-    tagColor: "#D85A30",
-    tagBg: "#FAECE7",
-    readTime: "4 min",
-    content: `LinkedIn version: every company has an AI transformation underway. Everyone is a 10x team. The future is now.
-
-Real version: adoption is patchy, uneven, and usually driven by a handful of enthusiastic individuals per team who carry the rest along at their own pace.
-
-**What I'm actually seeing:** Individual productivity has genuinely improved for people who built real AI workflows. The median PM on an AI-enabled team is noticeably more capable than two years ago in specific tasks — research synthesis, document drafting, first-pass analysis, user interview coding. That's real and compounding.
-
-**What's slow:** Team-level process change. Most teams still run standups, planning cycles, and reviews the same way they did in 2023. AI hasn't changed how teams coordinate. It's changed how individuals work within those processes. Those are different things, and the second one is much harder.
-
-**What's even slower:** Culture. Some leaders are still treating AI as a threat to headcount — using it primarily as a justification for slower hiring rather than a reason to raise quality bars. Others are over-investing in AI theater: demos, workshops, announcements, without material change to how work gets done.
-
-The teams I've watched get genuine compounding returns from AI all shared one thing: they treated AI as a capability multiplier for their existing people, not a substitution strategy. They changed workflows, not just added tools. That distinction matters more than which tools you pick.`,
-  },
-  {
-    id: 105,
-    date: "2026-02-02",
-    title: "Reasoning models and long-horizon tasks — the new PM challenge",
-    excerpt: "AI that can plan multi-step tasks creates new product design problems that nobody has fully solved yet. Interruption, observability, latency — here's how I'm thinking about it.",
-    tag: "AI",
-    tagColor: "#D85A30",
-    tagBg: "#FAECE7",
-    readTime: "5 min",
-    content: `The o1-class reasoning models changed something important: AI can now handle tasks that require multi-step planning and self-correction. Not just "what's the answer?" but "how do I get to the answer, check it, and adjust if I'm wrong?" That's a qualitatively different capability.
-
-It's useful. But it creates new product design problems that I haven't seen anyone fully solve yet.
-
-**The interruption problem.** If a model is reasoning through a 15-step plan, where do you let the user step in? Interrupt too early and you break the chain. Don't interrupt at all and the user loses confidence in what's happening. The right intervention points are task-specific — and figuring them out is real design work, not just a UI decision.
-
-**The observability problem.** With short outputs, users can verify the answer. With long reasoning chains, verification gets hard. Users can't easily audit intermediate steps. Trust degrades. Products that solve this — that give users just enough visibility without drowning them in internal reasoning — have a real UX advantage.
-
-**The latency problem.** Longer reasoning takes longer. Users tolerate wrong answers better than slow answers. That's not ideal, but it's true — which means "make it faster" often matters more than "make it smarter" in early-stage agentic products. Streaming intermediate results helps, but streaming every reasoning step feels like watching someone think out loud: useful for a few tasks, annoying for most.
-
-The design pattern for reasoning model transparency is genuinely unsolved. The PM who gets it right will build something worth copying.`,
-  },
-  {
-    id: 104,
-    date: "2026-01-26",
-    title: "The AI integration middleware is the real battleground",
-    excerpt: "The foundation model race matters less than it did. The orchestration layer — how AI connects to your data, tools, and workflows — is where real product moats are being built.",
-    tag: "AI",
-    tagColor: "#D85A30",
-    tagBg: "#FAECE7",
-    readTime: "4 min",
-    content: `The foundation model race is still happening, but it's matured. The capability gap between frontier models has narrowed. Picking a model still matters — but it's no longer the dominant source of product differentiation it was in 2023.
-
-The real battle is in the orchestration layer: who controls how AI connects to your data, your tools, and your workflows.
-
-Think about what this layer includes: how you retrieve relevant context (RAG architecture), how you chain model calls, how you manage memory across sessions, how you route queries to the right model for the right task, how you call external tools reliably, how you debug when something in the chain breaks. This is the layer between the foundation model and the end user experience — and it's where most of the reliability, quality, and performance actually comes from.
-
-This is unglamorous infrastructure work. It doesn't make for good conference demos. But it's what separates AI products that work in production from AI products that work in a pitch deck.
-
-The teams and companies that understand this layer deeply are building real moats. Not because the technology is proprietary — most of the tools are open. But because operational excellence in orchestration is hard to copy. You accumulate institutional knowledge about failure modes, edge cases, latency patterns, and context design that takes time to build. You can't shortcut it by switching to a better model.
-
-If your team doesn't have at least one person who can reason clearly about this layer, that's the gap to close first.`,
-  },
-  {
-    id: 103,
-    date: "2026-01-19",
-    title: "What actually changed for PMs in 2025 — the honest version",
-    excerpt: "A year has passed since I set my AI goals for 2025. Here's an honest accounting of what AI genuinely changed, what it didn't, and what I got wrong.",
-    tag: "AI",
-    tagColor: "#D85A30",
-    tagBg: "#FAECE7",
-    readTime: "5 min",
-    content: `Enough time has passed that I can give an honest accounting of what AI changed about PM work in 2025. Not the LinkedIn version. The actual version.
-
-**What AI genuinely changed:**
-
-Research and synthesis. Dramatically faster. What used to take a full day of reading and note-taking now takes a focused two-hour session of directed AI-assisted synthesis. The quality of the synthesis depends heavily on how you prompt and review it — but the raw throughput improvement is real and compounding.
-
-Document drafting. PRDs, specs, decks, one-pagers. The blank-page problem is largely solved. Editing is still work. The judgment of what to include is still work. But the activation energy to start is gone, and that matters more than people give it credit for.
-
-Discovery analysis. Running AI over qualitative data from user interviews changed how much I could learn per sprint. Not just faster — genuinely broader. I can surface patterns across 40 interviews that I would have missed across 10.
-
-**What AI didn't change:**
-
-Stakeholder dynamics. Still political. Still relationship-driven. The PM who thinks AI will help them win a prioritization argument with a VP is going to be disappointed.
-
-The fundamental uncertainty of product. You still don't know if users will care until they try it. AI can help you explore the possibility space faster, but it can't collapse the uncertainty.
-
-Prioritization judgment. The hard part was never writing RICE scores. It was the judgment underneath them.
-
-Summary: AI made execution faster. It didn't make strategy clearer. Some PMs confused the two and moved faster toward the wrong thing. Speed without direction is just more expensive mistakes.`,
-  },
-  {
-    id: 102,
-    date: "2026-01-12",
-    title: "AI agents in production — honest lessons from the trenches",
-    excerpt: "A year ago, agentic AI was mostly demos. Now it's in production. Here's what I've actually learned — including the things that still don't work.",
-    tag: "AI",
-    tagColor: "#D85A30",
-    tagBg: "#FAECE7",
-    readTime: "5 min",
-    content: `A year ago, agentic AI was mostly demos and prototypes. Now it's in production across enough real products that I can give an honest accounting of what works and what doesn't.
-
-**Agents fail at edges.** The demo always shows the clean path: user asks for X, agent does X, everyone's happy. Production is made of edge cases. The user asks for something ambiguous. The tool returns an unexpected error. The context window gets overloaded mid-task. Agents that weren't designed for graceful degradation in these moments fail badly — and they fail in ways that feel more jarring than regular software failures because users expected intelligence.
-
-**Users don't trust autonomous actions without undo.** You'd think people would welcome having an AI do things for them. In practice, if users can't reverse an action, they won't initiate it — even when they're confident the AI would do it well. The reversibility requirement is non-negotiable for any agent that touches real data or real workflows. Design for undo first. Everything else second.
-
-**Latency is a bigger problem than accuracy.** Users tolerate wrong answers better than slow answers. Not ideal, but consistently true across the products I've watched. Which means "make it faster" often matters more than "make it smarter" in early-stage agentic work. A fast 80% answer beats a slow 95% answer for most everyday tasks.
-
-**What's actually working:** narrow, reliable, reversible, fast agents with a clear scope. Not general-purpose. The agents that are delivering real value in 2026 solve one thing very well. Start with that. Generality can come later.`,
-  },
-  {
-    id: 101,
-    date: "2026-01-05",
-    title: "The AI consolidation year begins",
-    excerpt: "2025 was the deployment year — AI went from interesting to embedded. 2026 feels different. The question isn't 'should we use AI?' anymore. It's 'which AI bets are actually paying off?'",
-    tag: "AI",
-    tagColor: "#D85A30",
-    tagBg: "#FAECE7",
-    readTime: "4 min",
-    content: `At the end of 2024 I wrote that 2025 would be the deployment year — AI moving from interesting experiments to embedded in real workflows. That was roughly right. By mid-2025, most serious product teams had AI in their stack somewhere. By end of 2025, the question wasn't "should we use AI?" That was settled.
-
-2026 feels different. The novelty is gone. The budgets are being scrutinized. The question now is: which AI bets are actually paying off?
-
-The consolidation is already starting. AI tools that couldn't demonstrate clear value during 2025 are struggling to renew contracts. The enthusiasm cycle that carried them through 2024 has expired. Users who adopted AI for novelty have either built real habits around it or quietly stopped using it. There's no middle state anymore.
-
-For PMs, this creates a challenge that's different from the previous two years. Then, the challenge was "how do we build with AI?" Now it's "how do we prove this AI feature is worth what we're paying for it?" Those are different questions that need different metrics, different conversations with stakeholders, and a different approach to product iteration.
-
-The teams that get through this consolidation will be the ones who tied AI features to specific user outcomes — not engagement signals, not feature adoption rates, but actual outcomes users care about. If you haven't done that audit yet, start now. The renewal conversation is coming.
-
-The consolidation will be uncomfortable. It will also be clarifying. That's usually how good things happen in product.`,
   },
 ];
 
@@ -857,21 +538,29 @@ function PostModal({ post, onClose }) {
           margin: "0 0 24px", color: "var(--text-primary)",
           fontFamily: "'Playfair Display', Georgia, serif",
         }}>{post.title}</h2>
-        <div style={{ fontSize: 15, color: "var(--text-muted)", lineHeight: 1.85 }}>
-          {post.content.split("\n\n").map((para, i) => {
-            // Render **bold** text
-            const parts = para.split(/(\*\*[^*]+\*\*)/g);
-            return (
-              <p key={i} style={{ margin: "0 0 20px" }}>
-                {parts.map((part, j) =>
-                  part.startsWith("**") && part.endsWith("**")
-                    ? <strong key={j} style={{ color: "var(--text-primary)", fontWeight: 600 }}>{part.slice(2, -2)}</strong>
-                    : part
-                )}
-              </p>
-            );
-          })}
-        </div>
+        {/<[a-z][\s\S]*>/i.test(post.content) ? (
+          <div
+            className="rich-post-content"
+            style={{ fontSize: 15, color: "var(--text-muted)", lineHeight: 1.85 }}
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
+        ) : (
+          <div style={{ fontSize: 15, color: "var(--text-muted)", lineHeight: 1.85 }}>
+            {post.content.split("\n\n").map((para, i) => {
+              // Render **bold** text
+              const parts = para.split(/(\*\*[^*]+\*\*)/g);
+              return (
+                <p key={i} style={{ margin: "0 0 20px" }}>
+                  {parts.map((part, j) =>
+                    part.startsWith("**") && part.endsWith("**")
+                      ? <strong key={j} style={{ color: "var(--text-primary)", fontWeight: 600 }}>{part.slice(2, -2)}</strong>
+                      : part
+                  )}
+                </p>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

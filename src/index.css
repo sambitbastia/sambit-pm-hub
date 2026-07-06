@@ -109,3 +109,28 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+/* Rich content rendered from the blog editor (Tiptap HTML output) */
+.rich-post-content p { margin: 0 0 20px; }
+.rich-post-content h1,
+.rich-post-content h2,
+.rich-post-content h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  color: var(--text-primary);
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 28px 0 14px;
+}
+.rich-post-content h1 { font-size: 26px; }
+.rich-post-content h2 { font-size: 22px; }
+.rich-post-content h3 { font-size: 18px; }
+.rich-post-content strong { color: var(--text-primary); font-weight: 600; }
+.rich-post-content a { color: #1D9E75; text-decoration: underline; }
+.rich-post-content ul, .rich-post-content ol { margin: 0 0 20px; padding-left: 22px; }
+.rich-post-content li { margin: 0 0 8px; }
+.rich-post-content blockquote {
+  margin: 0 0 20px; padding: 4px 0 4px 16px;
+  border-left: 3px solid #1D9E75; color: var(--text-muted);
+}
+.rich-post-content img { max-width: 100%; border-radius: 12px; margin: 8px 0 20px; display: block; }
+.rich-post-content hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
