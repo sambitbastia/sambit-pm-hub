@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import AI_POSTS from "./data/ai-posts.json";
+import { ShareButton, ReplyButton, ReactionBar } from "./components/PostActions";
 
 const SECTIONS = [
   { id: "hero", label: "Home" },
@@ -483,7 +484,8 @@ function SecretCard({ secret }) {
 }
 
 // ─── Blog Post Modal ───────────────────────────
-function PostModal({ post, onClose }) {
+function PostModal({ post, onClose, shareUrl }) {
+  const resolvedShareUrl = shareUrl || (typeof window !== "undefined" ? window.location.href : "");
   useEffect(() => {
     document.body.style.overflow = "hidden";
     const handler = (e) => { if (e.key === "Escape") onClose(); };
@@ -528,10 +530,14 @@ function PostModal({ post, onClose }) {
             display: "flex", alignItems: "center", justifyContent: "center",
           }}
         >×</button>
-        <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 16, flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 12, flexWrap: "wrap" }}>
           <Badge color={post.tagColor} bg={post.tagBg}>{post.tag}</Badge>
           <span style={{ fontSize: 12, color: "var(--text-muted)" }}>{post.date}</span>
           <span style={{ fontSize: 12, color: "var(--text-muted)" }}>· {post.readTime} read</span>
+        </div>
+        <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
+          <ShareButton title={post.title} url={resolvedShareUrl} />
+          <ReplyButton title={post.title} />
         </div>
         <h2 style={{
           fontSize: 28, fontWeight: 700, lineHeight: 1.2,
@@ -561,6 +567,7 @@ function PostModal({ post, onClose }) {
             })}
           </div>
         )}
+        <ReactionBar postId={post.id} />
       </div>
     </div>
   );
@@ -717,8 +724,8 @@ function MailingList() {
 }
 
 // ─── Blog Page ────────────────────────────────────────────────────
-function BlogPage({ onBack }) {
-  const [openPost, setOpenPost] = useState(null);
+function BlogPage({ onBack, openPostId, onOpenPost, onClosePost }) {
+  const openPost = openPostId ? AI_POSTS.find((p) => p.id === openPostId) : null;
   const dark = typeof window !== "undefined" && window.matchMedia?.("(prefers-color-scheme: dark)").matches;
 
   useEffect(() => {
@@ -740,7 +747,13 @@ function BlogPage({ onBack }) {
     }}>
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
 
-      {openPost && <PostModal post={openPost} onClose={() => setOpenPost(null)} />}
+      {openPost && (
+        <PostModal
+          post={openPost}
+          onClose={onClosePost}
+          shareUrl={typeof window !== "undefined" ? `${window.location.origin}${window.location.pathname}?post=${openPost.id}` : ""}
+        />
+      )}
 
       {/* Nav */}
       <nav style={{
@@ -794,7 +807,7 @@ function BlogPage({ onBack }) {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 20 }}>
           {AI_POSTS.map((post) => (
-            <BlogCard key={post.id} post={post} onClick={() => setOpenPost(post)} />
+            <BlogCard key={post.id} post={post} onClick={() => onOpenPost(post)} />
           ))}
         </div>
         <div style={{ marginTop: 48 }}>
@@ -818,11 +831,54 @@ function BlogPage({ onBack }) {
 // ─── Main App ──────────────────────────────────
 export default function SambitBastiaWebsite() {
   const [page, setPage] = useState("home");
+  const [blogPostId, setBlogPostId] = useState(null);
   const [activeSection, setActiveSection] = useState("hero");
   const [expandedFramework, setExpandedFramework] = useState(null);
   const [openStrategy, setOpenStrategy] = useState(null);
   const [openPost, setOpenPost] = useState(null);
   const sectionRefs = useRef({});
+
+  // ── Deep-link routing for AI blog posts (?post=<id> / ?blog=1) ──
+  useEffect(() => {
+    const syncFromLocation = () => {
+      const params = new URLSearchParams(window.location.search);
+      const postParam = params.get("post");
+      const found = postParam && AI_POSTS.find((p) => String(p.id) === postParam);
+      if (found) {
+        setPage("blog");
+        setBlogPostId(found.id);
+      } else if (params.get("blog")) {
+        setPage("blog");
+        setBlogPostId(null);
+      } else {
+        setPage("home");
+        setBlogPostId(null);
+      }
+    };
+    syncFromLocation();
+    window.addEventListener("popstate", syncFromLocation);
+    return () => window.removeEventListener("popstate", syncFromLocation);
+  }, []);
+
+  const goHome = () => {
+    window.history.pushState(null, "", "/");
+    setPage("home");
+    setBlogPostId(null);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  };
+  const goToBlogList = () => {
+    window.history.pushState(null, "", "?blog=1");
+    setPage("blog");
+    setBlogPostId(null);
+  };
+  const openBlogPost = (post) => {
+    window.history.pushState(null, "", `?post=${post.id}`);
+    setBlogPostId(post.id);
+  };
+  const closeBlogPost = () => {
+    window.history.pushState(null, "", "?blog=1");
+    setBlogPostId(null);
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -847,7 +903,14 @@ export default function SambitBastiaWebsite() {
 
   // ── Render the Blog page if selected ──
   if (page === "blog") {
-    return <BlogPage onBack={() => { setPage("home"); window.scrollTo({ top: 0, behavior: "instant" }); }} />;
+    return (
+      <BlogPage
+        onBack={goHome}
+        openPostId={blogPostId}
+        onOpenPost={openBlogPost}
+        onClosePost={closeBlogPost}
+      />
+    );
   }
 
   return (
@@ -902,7 +965,7 @@ export default function SambitBastiaWebsite() {
                 transition: "all 0.2s",
               }}>{s.label}</button>
             ))}
-            <button onClick={() => setPage("blog")} style={{
+            <button onClick={goToBlogList} style={{
               border: "1px solid #D85A30",
               background: "transparent",
               borderRadius: 6,
@@ -953,7 +1016,7 @@ export default function SambitBastiaWebsite() {
             padding: "12px 28px", borderRadius: 8, border: "none",
             background: "#1D9E75", color: "#fff", fontSize: 14, fontWeight: 600, cursor: "pointer",
           }}>Explore frameworks →</button>
-          <button onClick={() => setPage("blog")} style={{
+          <button onClick={goToBlogList} style={{
             padding: "12px 28px", borderRadius: 8,
             border: "1px solid var(--border)", background: "transparent",
             color: "var(--text-primary)", fontSize: 14, fontWeight: 500, cursor: "pointer",
@@ -964,7 +1027,7 @@ export default function SambitBastiaWebsite() {
             { num: "6+", label: "Core frameworks" },
             { num: "6", label: "AI tools profiled" },
             { num: "4", label: "AI strategies" },
-            { num: `${POSTS.length}`, label: "Blog posts" },
+            { num: `${AI_POSTS.length}`, label: "Blog posts" },
           ].map((s, i) => (
             <div key={i} style={{ padding: 20, background: "var(--surface)", borderRadius: 12 }}>
               <p style={{ fontSize: 28, fontWeight: 700, margin: 0, fontFamily: "'Playfair Display', Georgia, serif", color: "#1D9E75" }}>{s.num}</p>
@@ -1127,10 +1190,10 @@ export default function SambitBastiaWebsite() {
           <div>
             <p style={{ fontSize: 13, fontWeight: 600, color: "#D85A30", margin: "0 0 4px", letterSpacing: "0.04em", textTransform: "uppercase" }}>AI Blog</p>
             <p style={{ fontSize: 17, fontWeight: 600, color: "var(--text-primary)", margin: "0 0 4px", fontFamily: "'Playfair Display', Georgia, serif" }}>Weekly posts on AI × Product management</p>
-            <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>12 posts for 2026 — with 2022–2025 backfill in progress (77 more posts coming)</p>
+            <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>{AI_POSTS.length} posts published so far — new one every week</p>
           </div>
           <button
-            onClick={() => setPage("blog")}
+            onClick={goToBlogList}
             style={{
               padding: "12px 24px", borderRadius: 10, border: "none",
               background: "#D85A30", color: "#fff",
