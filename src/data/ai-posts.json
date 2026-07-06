@@ -1,5 +1,16 @@
 [
   {
+    "id": "2026-07-06-smoke-test-delete-me",
+    "date": "2026-07-06",
+    "title": "__SMOKE_TEST_DELETE_ME__",
+    "excerpt": "This is a smoke test post and will be deleted immediately.",
+    "tag": "AI",
+    "tagColor": "#D85A30",
+    "tagBg": "#FAECE7",
+    "readTime": "1 min",
+    "content": "<p>This is a <strong>smoke test</strong> post and will be deleted immediately.</p>"
+  },
+  {
     "id": 113,
     "date": "2026-07-05",
     "title": "AI's governance week: ten signals banking PMs can't ignore",
