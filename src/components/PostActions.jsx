@@ -176,7 +176,7 @@ export function ReactionBar({ postId }) {
     }
     const visitorId = getVisitorId();
     supabase
-      .rpc("get_post_reactions", { p_post_id: postId, p_visitor_id: visitorId })
+      .rpc("get_post_reactions", { p_post_id: String(postId), p_visitor_id: visitorId })
       .then(({ data, error }) => {
         if (cancelled) return;
         if (!error && data && data[0]) {
@@ -208,7 +208,7 @@ export function ReactionBar({ postId }) {
     setCounts(next);
 
     const { data, error } = await supabase.rpc("toggle_post_reaction", {
-      p_post_id: postId,
+      p_post_id: String(postId),
       p_visitor_id: visitorId,
       p_reaction: reaction,
     });
